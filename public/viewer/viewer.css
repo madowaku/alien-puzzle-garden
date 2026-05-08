@@ -162,15 +162,63 @@ body {
 
 .summary {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 8px 14px;
+  gap: 14px;
 }
 
-.summary dt {
+.summary-card {
+  padding: 12px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+}
+
+.summary-card h3 {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font: 12px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace;
+  text-transform: uppercase;
+}
+
+.summary-card dl {
+  display: grid;
+  grid-template-columns: minmax(92px, auto) minmax(0, 1fr);
+  gap: 8px 12px;
+  margin: 0;
+}
+
+.summary-card dt {
   color: var(--muted);
 }
 
-.summary dd {
+.summary-card dd {
   margin: 0;
   word-break: break-word;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  color: var(--text);
+  background: #1f2937;
+  border: 1px solid var(--line);
+  font: 12px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.status-survived,
+.status-robust_candidate,
+.status-promote_to_parent {
+  border-color: #34d399;
+  color: #bbf7d0;
+}
+
+.status-weakened,
+.status-inconclusive {
+  border-color: #fbbf24;
+  color: #fde68a;
+}
+
+.status-broken,
+.status-fragile_candidate,
+.status-rename_or_split {
+  border-color: #fb7185;
+  color: #fecdd3;
 }
