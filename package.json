@@ -1,0 +1,22 @@
+{
+  "name": "alien-puzzle-garden",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "critic": "tsx src/commands/runCritic.ts",
+    "experiment": "tsx src/index.ts",
+    "mutation-plan": "tsx src/commands/runMutationPlan.ts",
+    "mutation-run": "tsx src/commands/runMutationRun.ts",
+    "survival-index": "tsx src/commands/runSurvivalIndex.ts",
+    "evolution-candidates": "tsx src/commands/runEvolutionCandidates.ts",
+    "naming-debt": "tsx src/commands/runNamingDebt.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.0"
+  }
+}

@@ -1,0 +1,25 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+
+# Generated experiment outputs
+experiments/APG-*/
+experiments/index.md
+experiments/pattern_survival_index.json
+experiments/pattern_survival_index.md
+experiments/evolution_parent_candidates.json
+experiments/evolution_parent_candidates.md
+experiments/naming_debt_report.json
+experiments/naming_debt_report.md
+
+# Keep experiments directory if needed
+!experiments/.gitkeep
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
