@@ -36,7 +36,11 @@ Read Pattern Survival Index output and classify named patterns as parent candida
 
 Read evolution candidate decisions and identify fragile, under-tested, or overly broad pattern names that should be renamed, split, or tested further.
 
-## v0.2.9 Research Signal Harvester
+## v0.2.9 Minimal Web Viewer
+
+Add a local read-only observatory interface for browsing experiments, reports, mutation results, survival index, evolution candidates, and naming debt.
+
+## v0.2.10 Research Signal Harvester
 
 Add an optional Python sidecar for collecting recent research signals from sources such as arXiv, journal pages, conference programs, and research blogs. Scrapling is a strong candidate for this layer because it supports adaptive selectors, multiple fetchers, crawls, and AI/MCP-oriented extraction, but it should remain optional so the v0.1 CLI stays local and deterministic.
 

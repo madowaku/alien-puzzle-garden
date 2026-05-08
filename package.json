@@ -11,6 +11,7 @@
     "survival-index": "tsx src/commands/runSurvivalIndex.ts",
     "evolution-candidates": "tsx src/commands/runEvolutionCandidates.ts",
     "naming-debt": "tsx src/commands/runNamingDebt.ts",
+    "viewer": "tsx src/commands/runViewer.ts",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts"
   },
