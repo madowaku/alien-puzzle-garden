@@ -16,6 +16,7 @@ test("artifact scanner includes global reports, docs, and README", async () => {
     const labels = tree.globalArtifacts.map((artifact) => artifact.label);
 
     assert.ok(labels.includes("README.md"));
+    assert.ok(labels.includes("garden_program.md"));
     assert.ok(labels.includes("docs/web-viewer.md"));
     assert.ok(labels.includes("pattern_survival_index.md"));
     assert.ok(labels.includes("evolution_parent_candidates.md"));
@@ -61,6 +62,7 @@ test("viewer path safety allows only README, docs, and experiments files", async
 
   try {
     assert.equal(await readFile(resolveAllowedViewerPath(rootDir, "README.md"), "utf8"), "# APG\n");
+    assert.equal(await readFile(resolveAllowedViewerPath(rootDir, "garden_program.md"), "utf8"), "# Garden Program\n");
     assert.equal(await readFile(resolveAllowedViewerPath(rootDir, "docs/web-viewer.md"), "utf8"), "# Viewer\n");
     assert.equal(await readFile(resolveAllowedViewerPath(rootDir, "experiments/APG-0001/report.md"), "utf8"), "# Report\n");
     assert.throws(() => resolveAllowedViewerPath(rootDir, "package.json"), /not allowed/i);
@@ -101,6 +103,7 @@ async function createViewerFixture(): Promise<string> {
   await mkdir(join(rootDir, "experiments", "APG-0001", "mutations", "MUT-001"), { recursive: true });
 
   await writeFile(join(rootDir, "README.md"), "# APG\n", "utf8");
+  await writeFile(join(rootDir, "garden_program.md"), "# Garden Program\n", "utf8");
   await writeFile(join(rootDir, "docs", "web-viewer.md"), "# Viewer\n", "utf8");
   await writeFile(join(rootDir, "experiments", "pattern_survival_index.md"), "# Pattern Survival Index\n", "utf8");
   await writeFile(join(rootDir, "experiments", "evolution_parent_candidates.md"), "# Evolution Parent Candidates\n", "utf8");

@@ -60,7 +60,7 @@ export async function scanViewerArtifacts(rootDir: string): Promise<ViewerArtifa
 
 async function scanGlobalArtifacts(rootDir: string): Promise<ViewerArtifact[]> {
   const artifacts: ViewerArtifact[] = [];
-  for (const relativePath of ["README.md", ...await listDocs(rootDir), ...GLOBAL_EXPERIMENT_FILES]) {
+  for (const relativePath of ["README.md", "garden_program.md", ...await listDocs(rootDir), ...GLOBAL_EXPERIMENT_FILES]) {
     if (await fileExists(rootDir, relativePath)) {
       artifacts.push(toArtifact(relativePath, "global"));
     }

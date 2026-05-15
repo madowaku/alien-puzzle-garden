@@ -16,6 +16,7 @@ npm run mutation-run
 npm run survival-index
 npm run evolution-candidates
 npm run naming-debt
+npm run garden-status
 ```
 
 ## Local Web Viewer
@@ -31,6 +32,14 @@ http://localhost:4177
 ```
 
 The viewer is local, read-only, and does not call any LLM or external API.
+
+## Garden Program
+
+`garden_program.md` is the human-written research taste for the garden. It describes which pattern candidates APG should prefer, avoid, split, or promote later.
+
+```bash
+npm run garden-status
+```
 
 ## API Strategy
 
