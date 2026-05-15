@@ -42,6 +42,13 @@ or:
 npm run critic -- --provider ollama --model gemma4
 ```
 
+For local reasoning models, DeepSeek-R1 can act as a stronger observatory critic. APG strips common reasoning tags before JSON parsing, but the report should still be treated as local interpretation rather than proof.
+
+```bash
+ollama pull deepseek-r1:8b
+npm run critic -- --provider ollama --model deepseek-r1:8b --latest
+```
+
 Ollama should stay bound to local development. Do not expose local Ollama to a public network for APG.
 
 ## Phase 3: Free-Tier LLM

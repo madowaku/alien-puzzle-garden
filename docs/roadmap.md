@@ -40,6 +40,10 @@ Read evolution candidate decisions and identify fragile, under-tested, or overly
 
 Add a local read-only observatory interface for browsing experiments, reports, mutation results, survival index, evolution candidates, and naming debt.
 
+## v0.2.9.2 DeepSeek-R1 Local Critic Compatibility
+
+Improve the Ollama critic path for local reasoning models by asking for JSON-only output and stripping `<think>...</think>` reasoning blocks before schema parsing.
+
 ## v0.2.10 Research Signal Harvester
 
 Add an optional Python sidecar for collecting recent research signals from sources such as arXiv, journal pages, conference programs, and research blogs. Scrapling is a strong candidate for this layer because it supports adaptive selectors, multiple fetchers, crawls, and AI/MCP-oriented extraction, but it should remain optional so the v0.1 CLI stays local and deterministic.

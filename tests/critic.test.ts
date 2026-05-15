@@ -6,7 +6,7 @@ import assert from "node:assert/strict";
 
 import { buildCriticInput, buildCriticPrompt } from "../src/critics/buildCriticPrompt.ts";
 import { buildMockCriticOutput } from "../src/critics/mockCritic.ts";
-import { runOllamaCritic } from "../src/critics/ollamaCritic.ts";
+import { parseOllamaCriticText, runOllamaCritic } from "../src/critics/ollamaCritic.ts";
 import { renderLlmCriticMarkdown } from "../src/critics/llmCritic.ts";
 import { buildHelpText, parseArgs, runCritic } from "../src/commands/runCritic.ts";
 import { runExperiment } from "../src/experiments/runExperiment.ts";
@@ -249,7 +249,48 @@ test("ollama provider builds /api/chat request without API key", async () => {
   assert.equal(capturedBody.stream, false);
   assert.equal(capturedBody.messages[0].role, "system");
   assert.match(capturedBody.messages[0].content, /Return only valid JSON/);
+  assert.match(capturedBody.messages[0].content, /Do not include <think> tags/);
+  assert.match(capturedBody.messages[0].content, /Do not include reasoning text outside JSON/);
   assert.equal(result.output.summary, buildMockCriticOutput(input).summary);
+});
+
+test("ollama parser ignores DeepSeek-style think blocks before JSON", () => {
+  const input = buildCriticInput(puzzle, runs, stats, "# deterministic report");
+  const output = buildMockCriticOutput(input);
+  const rawText = [
+    "<think>",
+    "I should reason about this first. A misleading object appears here: {\"not\":\"critic output\"}.",
+    "</think>",
+    JSON.stringify(output)
+  ].join("\n");
+
+  const result = parseOllamaCriticText(rawText, {
+    model: "deepseek-r1:8b",
+    baseUrl: "http://localhost:11434",
+    input
+  });
+
+  assert.equal(result.rawPayload.parseFailed, false);
+  assert.equal(result.output.summary, output.summary);
+});
+
+test("ollama parser extracts JSON after leading reasoning text", () => {
+  const input = buildCriticInput(puzzle, runs, stats, "# deterministic report");
+  const output = buildMockCriticOutput(input);
+  const rawText = [
+    "Reasoning summary: the following object is the final schema output.",
+    JSON.stringify(output),
+    "Trailing note that should not be parsed."
+  ].join("\n");
+
+  const result = parseOllamaCriticText(rawText, {
+    model: "deepseek-r1:7b",
+    baseUrl: "http://localhost:11434",
+    input
+  });
+
+  assert.equal(result.rawPayload.parseFailed, false);
+  assert.equal(result.output.summary, output.summary);
 });
 
 test("ollama malformed JSON falls back gracefully with raw text", async () => {

@@ -51,7 +51,9 @@ export async function runOllamaCritic(input: CriticInput, options: OllamaCriticO
             prompt.system,
             "Return only valid JSON matching the requested schema.",
             "Do not wrap the JSON in Markdown.",
-            "Do not add commentary before or after the JSON."
+            "Do not add commentary before or after the JSON.",
+            "Do not include <think> tags.",
+            "Do not include reasoning text outside JSON."
           ].join(" ")
         },
         { role: "user", content: prompt.user }
@@ -74,10 +76,14 @@ export function parseOllamaCriticText(
   rawText: string,
   context: { model: string; baseUrl: string; input: CriticInput }
 ): OllamaCriticResult {
+  const textWithoutThinkBlocks = stripThinkBlocks(rawText);
   const candidates = [
     rawText,
+    textWithoutThinkBlocks,
     extractFencedJson(rawText),
-    extractBraceJson(rawText)
+    extractFencedJson(textWithoutThinkBlocks),
+    extractBraceJson(rawText),
+    extractBraceJson(textWithoutThinkBlocks)
   ].filter((candidate): candidate is string => Boolean(candidate?.trim()));
 
   for (const candidate of candidates) {
@@ -120,6 +126,10 @@ function normalizeBaseUrl(value: string): string {
 function extractFencedJson(text: string): string | undefined {
   const match = text.match(/```json\s*([\s\S]*?)```/i);
   return match?.[1];
+}
+
+function stripThinkBlocks(text: string): string {
+  return text.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
 }
 
 function extractBraceJson(text: string): string | undefined {
