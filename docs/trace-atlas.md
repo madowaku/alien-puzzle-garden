@@ -36,6 +36,17 @@ experiments/trace_atlas.md
 - translation candidates
 - quiet AI-native traces
 
+## Viewer Cards
+
+The local viewer summarizes `trace_atlas.json` in the right pane:
+
+- experiment count
+- translation decision counts
+- top reasons
+- top rule families
+- translation candidates
+- quiet traces
+
 ## Observatory Note
 
 This atlas does not prove a pattern. It is a map of local trace signals.

@@ -55,6 +55,9 @@ export function buildObservatoryCards(path: string, content: string, kind: "mark
   if (path.endsWith("naming_debt_report.json")) {
     return buildNamingDebtCard(parsed);
   }
+  if (path.endsWith("trace_atlas.json")) {
+    return buildTraceAtlasCard(parsed);
+  }
   return [];
 }
 
@@ -178,6 +181,31 @@ function buildNamingDebtCard(report: any): ObservatoryCard[] {
   }];
 }
 
+function buildTraceAtlasCard(atlas: any): ObservatoryCard[] {
+  const reasons = topRecordEntries(atlas.reasonCounts, 3).map(([label, value]) => `${label}: ${value}`).join("\n");
+  const families = Array.isArray(atlas.ruleFamilies)
+    ? atlas.ruleFamilies.slice(0, 3).map((family: any) => `${family.dominantRuleId ?? "unknown"} (${family.count ?? "unknown"}, ${formatScore(family.averageHumanInterestScore)})`).join("\n")
+    : undefined;
+  const candidates = Array.isArray(atlas.translationCandidates)
+    ? atlas.translationCandidates.slice(0, 3).map((candidate: any) => `${candidate.experimentId ?? "unknown"} (${formatScore(candidate.humanInterestScore)}, ${candidate.dominantRuleId ?? "unknown"})`).join("\n")
+    : undefined;
+  const quiet = Array.isArray(atlas.quietTraces)
+    ? atlas.quietTraces.slice(0, 3).map((trace: any) => `${trace.experimentId ?? "unknown"} (${formatScore(trace.humanInterestScore)}, ${trace.dominantRuleId ?? "unknown"})`).join("\n")
+    : undefined;
+  return [{
+    title: "Trace Atlas",
+    rows: [
+      row("experimentCount", atlas.experimentCount),
+      row("translate", atlas.translationDecisionCounts?.translate),
+      row("do_not_translate", atlas.translationDecisionCounts?.do_not_translate),
+      row("Top reasons", reasons),
+      row("Top rule families", families),
+      row("Translation candidates", candidates),
+      row("Quiet traces", quiet)
+    ].filter(hasValue)
+  }];
+}
+
 function parseJson(content: string): any | undefined {
   try {
     return JSON.parse(content);
@@ -259,6 +287,16 @@ function topRuleUsage(ruleUsage: unknown): string | undefined {
     .sort((left, right) => Number(right[1]) - Number(left[1]));
   const [ruleId, count] = entries[0] ?? [];
   return ruleId ? `${ruleId}: ${count}` : undefined;
+}
+
+function topRecordEntries(record: unknown, limit: number): Array<[string, number]> {
+  if (!record || typeof record !== "object") {
+    return [];
+  }
+  return Object.entries(record as Record<string, number>)
+    .sort((left, right) => Number(right[1]) - Number(left[1]) || left[0].localeCompare(right[0]))
+    .slice(0, limit)
+    .map(([key, value]) => [key, Number(value)]);
 }
 
 function formatScore(score: unknown): string {

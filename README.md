@@ -65,6 +65,8 @@ npm run trace-atlas
 
 The Trace Atlas scans experiments and groups AI-native traces by translation decision, recurring reasons, dominant rule pulses, quiet traces, and human-interest candidates.
 
+`garden_program.md` lightly influences translation scoring, so the gardener's current research taste can nudge borderline traces without replacing deterministic evidence.
+
 ## API Strategy
 
 - `mock`: no API key

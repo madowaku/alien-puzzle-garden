@@ -60,6 +60,10 @@ Read `alien_trace.json` and decide whether the trace is worth a short human-faci
 
 Aggregate `alien_trace.json` and `translation_gate.json` across experiments into `trace_atlas.json` and `trace_atlas.md`, grouping translation candidates, quiet traces, recurring reasons, and dominant rule-pulse families.
 
+## v0.2.13.1 Trace Atlas Cards and Garden Program Influence
+
+Show Trace Atlas summaries in the viewer right pane, and let `garden_program.md` lightly influence translation scoring while preserving deterministic trace evidence.
+
 ## v0.2.14 Research Signal Harvester
 
 Add an optional Python sidecar for collecting recent research signals from sources such as arXiv, journal pages, conference programs, and research blogs. Scrapling is a strong candidate for this layer because it supports adaptive selectors, multiple fetchers, crawls, and AI/MCP-oriented extraction, but it should remain optional so the v0.1 CLI stays local and deterministic.

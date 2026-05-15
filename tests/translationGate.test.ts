@@ -7,6 +7,7 @@ import assert from "node:assert/strict";
 import { buildTranslationGate, renderTranslationNoteMarkdown } from "../src/translation/translationGate.ts";
 import { parseTranslationGateArgs, runTranslationGate } from "../src/commands/runTranslationGate.ts";
 import type { AlienTrace } from "../src/alien/alienTrace.ts";
+import type { GardenProgram } from "../src/garden/gardenProgram.ts";
 
 test("translation gate marks high-contrast alien traces for human translation", () => {
   const gate = buildTranslationGate(trace({
@@ -43,6 +44,30 @@ test("translation gate keeps quiet for low-signal alien traces", () => {
   assert.equal(gate.translationMode, "none");
 });
 
+test("translation gate applies garden program influence", () => {
+  const plain = buildTranslationGate(trace({
+    experimentId: "APG-0004",
+    best: 35,
+    avg: 20,
+    basins: 5,
+    rulePulse: ["R2:20", "R1:12"],
+    finalStates: 5
+  }));
+  const influenced = buildTranslationGate(trace({
+    experimentId: "APG-0004",
+    best: 35,
+    avg: 20,
+    basins: 5,
+    rulePulse: ["R2:20", "R1:12"],
+    finalStates: 5
+  }), gardenProgram());
+
+  assert.ok(influenced.humanInterestScore > plain.humanInterestScore);
+  assert.ok(influenced.reasons.includes("garden preference: basin diversity"));
+  assert.ok(influenced.gardenInfluence);
+  assert.equal(influenced.gardenInfluence?.programTitle, "Alien Puzzle Garden Program");
+});
+
 test("translation-gate command writes JSON and note for latest experiment", async () => {
   const experimentsDir = await mkdtemp(join(tmpdir(), "apg-translation-gate-"));
 
@@ -55,6 +80,14 @@ test("translation-gate command writes JSON and note for latest experiment", asyn
       rulePulse: ["R4:100", "R1:5"],
       finalStates: 4
     }));
+    await writeFile(join(experimentsDir, "..", "garden_program.md"), `# Alien Puzzle Garden Program
+
+Prefer patterns that:
+- basin diversity
+
+Avoid:
+- purely score-attached patterns
+`, "utf8");
 
     const result = await runTranslationGate({ experimentsDir, quiet: true });
     const json = JSON.parse(await readFile(join(experimentsDir, "APG-0001", "translation_gate.json"), "utf8"));
@@ -153,5 +186,14 @@ function trace(options: {
       ]
     },
     cautions: ["Synthetic trace."]
+  };
+}
+
+function gardenProgram(): GardenProgram {
+  return {
+    title: "Alien Puzzle Garden Program",
+    preferPatterns: ["basin diversity"],
+    avoidPatterns: ["purely score-attached patterns"],
+    evolutionPolicy: ["Prefer interpretable survival differences."]
   };
 }

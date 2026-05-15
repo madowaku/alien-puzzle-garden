@@ -1,4 +1,5 @@
 import type { AlienTrace } from "../alien/alienTrace.ts";
+import type { GardenProgram } from "../garden/gardenProgram.ts";
 
 export type TranslationDecision = "translate" | "do_not_translate";
 
@@ -11,12 +12,18 @@ export type TranslationGate = {
   translationMode: "short_observatory_note" | "none";
   reasons: string[];
   suggestedNote: string;
+  gardenInfluence?: {
+    programTitle: string;
+    matchedPreferences: string[];
+    matchedAvoids: string[];
+    scoreDelta: number;
+  };
   cautions: string[];
 };
 
 const TRANSLATION_THRESHOLD = 0.65;
 
-export function buildTranslationGate(trace: AlienTrace): TranslationGate {
+export function buildTranslationGate(trace: AlienTrace, gardenProgram?: GardenProgram): TranslationGate {
   const scoreContrast = getScalar(trace, "best") - getScalar(trace, "avg");
   const basinCount = getScalar(trace, "basins");
   const ruleConcentration = computeRuleConcentration(trace.channels.rulePulse);
@@ -58,6 +65,17 @@ export function buildTranslationGate(trace: AlienTrace): TranslationGate {
     reasons.push("many run glyphs available");
   }
 
+  const gardenInfluence = gardenProgram ? applyGardenInfluence(gardenProgram, reasons) : undefined;
+  if (gardenInfluence) {
+    score += gardenInfluence.scoreDelta;
+    for (const preference of gardenInfluence.matchedPreferences) {
+      reasons.push(`garden preference: ${preference}`);
+    }
+    for (const avoid of gardenInfluence.matchedAvoids) {
+      reasons.push(`garden caution: ${avoid}`);
+    }
+  }
+
   const humanInterestScore = clamp(round(score));
   const decision: TranslationDecision = humanInterestScore >= TRANSLATION_THRESHOLD ? "translate" : "do_not_translate";
 
@@ -69,6 +87,7 @@ export function buildTranslationGate(trace: AlienTrace): TranslationGate {
     humanInterestScore,
     translationMode: decision === "translate" ? "short_observatory_note" : "none",
     reasons,
+    gardenInfluence,
     suggestedNote: buildSuggestedNote(trace, decision, humanInterestScore, reasons),
     cautions: [
       "This gate is a deterministic human-interest filter, not an interpretation engine.",
@@ -107,6 +126,47 @@ function buildSuggestedNote(trace: AlienTrace, decision: TranslationDecision, sc
   }
   const reasonText = reasons.slice(0, 3).join(", ");
   return `${trace.experimentId} produced an AI-native trace with ${reasonText}. This may be worth a short human-facing observatory note, while preserving alien_trace.json as the source artifact.`;
+}
+
+function applyGardenInfluence(program: GardenProgram, reasons: string[]): TranslationGate["gardenInfluence"] | undefined {
+  const reasonText = reasons.join(" ").toLowerCase();
+  const matchedPreferences = program.preferPatterns.filter((preference) => matchesPreference(preference, reasonText));
+  const matchedAvoids = program.avoidPatterns.filter((avoid) => matchesAvoid(avoid, reasonText));
+  const scoreDelta = round(Math.min(0.15, matchedPreferences.length * 0.08) - Math.min(0.15, matchedAvoids.length * 0.08));
+  if (matchedPreferences.length === 0 && matchedAvoids.length === 0) {
+    return undefined;
+  }
+  return {
+    programTitle: program.title,
+    matchedPreferences,
+    matchedAvoids,
+    scoreDelta
+  };
+}
+
+function matchesPreference(preference: string, reasonText: string): boolean {
+  const normalized = preference.toLowerCase();
+  if (normalized.includes("basin")) {
+    return reasonText.includes("basin");
+  }
+  if (normalized.includes("rule")) {
+    return reasonText.includes("rule");
+  }
+  if (normalized.includes("score")) {
+    return reasonText.includes("score");
+  }
+  if (normalized.includes("trace")) {
+    return reasonText.includes("trace");
+  }
+  return reasonText.includes(normalized);
+}
+
+function matchesAvoid(avoid: string, reasonText: string): boolean {
+  const normalized = avoid.toLowerCase();
+  if (normalized.includes("score-attached") || normalized.includes("score")) {
+    return reasonText.includes("score") && !reasonText.includes("basin") && !reasonText.includes("rule");
+  }
+  return reasonText.includes(normalized);
 }
 
 function getScalar(trace: AlienTrace, key: string): number {

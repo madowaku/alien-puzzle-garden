@@ -77,6 +77,36 @@ test("naming_debt_report.json produces debt reason counts", () => {
   assert.ok(cards[0]?.rows.some((row) => row.label === "Narrower names" && row.value.includes("Rule-Local Gate")));
 });
 
+test("trace_atlas.json produces atlas summary cards", () => {
+  const cards = buildObservatoryCards("trace_atlas.json", JSON.stringify({
+    experimentCount: 4,
+    translationDecisionCounts: { translate: 2, do_not_translate: 2 },
+    reasonCounts: {
+      "strong score contrast": 2,
+      "high rule pulse concentration": 1
+    },
+    ruleFamilies: [
+      { dominantRuleId: "R3", count: 2, averageHumanInterestScore: 0.75, experimentIds: ["APG-0001", "APG-0002"] },
+      { dominantRuleId: "R1", count: 1, averageHumanInterestScore: 0.2, experimentIds: ["APG-0003"] }
+    ],
+    translationCandidates: [
+      { experimentId: "APG-0001", humanInterestScore: 0.85, dominantRuleId: "R3", reasons: ["strong score contrast"] },
+      { experimentId: "APG-0002", humanInterestScore: 0.72, dominantRuleId: "R3", reasons: ["multiple distinct basins"] }
+    ],
+    quietTraces: [
+      { experimentId: "APG-0003", humanInterestScore: 0.1, dominantRuleId: "R1", reasons: ["low score contrast"] }
+    ]
+  }), "json");
+
+  assert.equal(cards[0]?.title, "Trace Atlas");
+  assert.ok(cards[0]?.rows.some((row) => row.label === "experimentCount" && row.value === "4"));
+  assert.ok(cards[0]?.rows.some((row) => row.label === "translate" && row.value === "2"));
+  assert.ok(cards[0]?.rows.some((row) => row.label === "Top reasons" && row.value.includes("strong score contrast: 2")));
+  assert.ok(cards[0]?.rows.some((row) => row.label === "Top rule families" && row.value.includes("R3 (2, 0.75)")));
+  assert.ok(cards[0]?.rows.some((row) => row.label === "Translation candidates" && row.value.includes("APG-0001")));
+  assert.ok(cards[0]?.rows.some((row) => row.label === "Quiet traces" && row.value.includes("APG-0003")));
+});
+
 test("report.md extracts madowaku name candidate", () => {
   const cards = buildObservatoryCards("report.md", `# Report
 

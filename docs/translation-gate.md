@@ -52,6 +52,14 @@ The v0.2.12 gate is deterministic and local. It looks for:
 - dense trace tapes
 - enough run glyphs to inspect
 
+## Garden Program Influence
+
+If `garden_program.md` exists, the gate reads it as a light preference layer.
+
+Matched preferences can slightly raise `humanInterestScore`; matched avoid rules can slightly lower it. The influence is recorded in `translation_gate.json` as `gardenInfluence` so the adjustment is inspectable.
+
+This does not override the trace. It only lets the human gardener's current research taste nudge borderline cases.
+
 ## Cautions
 
 A translation decision is not proof of importance.

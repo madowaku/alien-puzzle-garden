@@ -2,6 +2,7 @@ import { mkdir, readFile, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { AlienTrace } from "../alien/alienTrace.ts";
+import { parseGardenProgramMarkdown } from "../garden/gardenProgram.ts";
 import { listExperimentDirs } from "../io/readExperimentFiles.ts";
 import { buildTranslationGate, renderTranslationNoteMarkdown } from "../translation/translationGate.ts";
 
@@ -28,6 +29,7 @@ export async function runTranslationGate(options: RunTranslationGateOptions = {}
   }
 
   const experimentsDir = options.experimentsDir ?? join(process.cwd(), "experiments");
+  const gardenProgram = await readGardenProgram(process.cwd());
   const generated: string[] = [];
   const skipped: string[] = [];
   let experimentDirs: string[];
@@ -45,7 +47,7 @@ export async function runTranslationGate(options: RunTranslationGateOptions = {}
   for (const experimentDir of experimentDirs) {
     try {
       const trace = JSON.parse(await readFile(join(experimentDir, "alien_trace.json"), "utf8")) as AlienTrace;
-      const gate = buildTranslationGate(trace);
+      const gate = buildTranslationGate(trace, gardenProgram);
       await mkdir(experimentDir, { recursive: true });
       await writeFile(join(experimentDir, "translation_gate.json"), `${JSON.stringify(gate, null, 2)}\n`, "utf8");
       if (gate.decision === "translate") {
@@ -70,6 +72,14 @@ export async function runTranslationGate(options: RunTranslationGateOptions = {}
     console.log("Translation gate run complete.");
   }
   return { generated, skipped };
+}
+
+async function readGardenProgram(rootDir: string): Promise<ReturnType<typeof parseGardenProgramMarkdown> | undefined> {
+  try {
+    return parseGardenProgramMarkdown(await readFile(join(rootDir, "garden_program.md"), "utf8"));
+  } catch {
+    return undefined;
+  }
 }
 
 export function parseTranslationGateArgs(args: string[]): RunTranslationGateOptions {
