@@ -56,7 +56,11 @@ Write `alien_trace.json` for each experiment as a deterministic machine-facing o
 
 Read `alien_trace.json` and decide whether the trace is worth a short human-facing note. Most traces can remain AI-native; only traces with enough local contrast, basin diversity, or rule concentration should produce `translation_note.md`.
 
-## v0.2.13 Research Signal Harvester
+## v0.2.13 Trace Atlas
+
+Aggregate `alien_trace.json` and `translation_gate.json` across experiments into `trace_atlas.json` and `trace_atlas.md`, grouping translation candidates, quiet traces, recurring reasons, and dominant rule-pulse families.
+
+## v0.2.14 Research Signal Harvester
 
 Add an optional Python sidecar for collecting recent research signals from sources such as arXiv, journal pages, conference programs, and research blogs. Scrapling is a strong candidate for this layer because it supports adaptive selectors, multiple fetchers, crawls, and AI/MCP-oriented extraction, but it should remain optional so the v0.1 CLI stays local and deterministic.
 

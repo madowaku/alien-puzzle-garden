@@ -20,6 +20,7 @@ npm run evolution-candidates
 npm run naming-debt
 npm run garden-status
 npm run translation-gate
+npm run trace-atlas
 ```
 
 ## Local Web Viewer
@@ -55,6 +56,14 @@ npm run translation-gate
 ```
 
 The translation gate reads `alien_trace.json` and decides whether a trace is worth a short human-facing note. Most traces can remain AI-native. If a trace crosses the deterministic human-interest threshold, APG writes `translation_note.md`.
+
+## Trace Atlas
+
+```bash
+npm run trace-atlas
+```
+
+The Trace Atlas scans experiments and groups AI-native traces by translation decision, recurring reasons, dominant rule pulses, quiet traces, and human-interest candidates.
 
 ## API Strategy
 

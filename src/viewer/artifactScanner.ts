@@ -25,6 +25,8 @@ export type ViewerArtifactTree = {
 };
 
 const GLOBAL_EXPERIMENT_FILES = [
+  "experiments/trace_atlas.md",
+  "experiments/trace_atlas.json",
   "experiments/pattern_survival_index.md",
   "experiments/evolution_parent_candidates.md",
   "experiments/naming_debt_report.md"
