@@ -1,4 +1,5 @@
 import { join } from "node:path";
+import { buildAlienTrace } from "../alien/alienTrace.ts";
 import { generateSymbolRewritePuzzle } from "../generators/symbolRewriteGenerator.ts";
 import { runBeamSearchSolver } from "../solvers/beamSearchSolver.ts";
 import { runGreedySolver } from "../solvers/greedySolver.ts";
@@ -43,6 +44,7 @@ export async function runExperiment(options: RunExperimentOptions = {}): Promise
     const runs = buildRuns(puzzle, randomRuns, seed);
     const stats = computeStats(id, seed, runs);
     const report = buildMarkdownReport(puzzle, stats);
+    const alienTrace = buildAlienTrace(puzzle, runs, stats);
     const summary: ExperimentSummary = {
       id,
       seed,
@@ -52,7 +54,7 @@ export async function runExperiment(options: RunExperimentOptions = {}): Promise
       madowakuName: chooseMadowakuName(stats)
     };
 
-    await writeExperimentFiles(outputDir, puzzle, runs, stats, report);
+    await writeExperimentFiles(outputDir, puzzle, runs, stats, report, alienTrace);
     generatedIds.push(id);
     summaries.push(summary);
     if (!options.quiet) {

@@ -1,5 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import type { AlienTrace } from "../alien/alienTrace.ts";
 import type { ExperimentStats, ExperimentSummary, SolverRun, SymbolRewritePuzzle } from "../types.ts";
 
 export async function writeExperimentFiles(
@@ -7,13 +8,17 @@ export async function writeExperimentFiles(
   puzzle: SymbolRewritePuzzle,
   runs: SolverRun[],
   stats: ExperimentStats,
-  report: string
+  report: string,
+  alienTrace?: AlienTrace
 ): Promise<void> {
   const experimentDir = join(rootDir, puzzle.id);
   await mkdir(experimentDir, { recursive: true });
   await writeFile(join(experimentDir, "puzzle.json"), `${JSON.stringify(puzzle, null, 2)}\n`, "utf8");
   await writeFile(join(experimentDir, "solver_runs.json"), `${JSON.stringify(runs, null, 2)}\n`, "utf8");
   await writeFile(join(experimentDir, "stats.json"), `${JSON.stringify(stats, null, 2)}\n`, "utf8");
+  if (alienTrace) {
+    await writeFile(join(experimentDir, "alien_trace.json"), `${JSON.stringify(alienTrace, null, 2)}\n`, "utf8");
+  }
   await writeFile(join(experimentDir, "report.md"), report, "utf8");
 }
 

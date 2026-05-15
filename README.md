@@ -6,6 +6,8 @@ Alien Puzzle Garden generates strange symbolic puzzle spaces, lets solvers explo
 
 It is not a human-playable puzzle game yet. It is a local research toy for strange pattern observation.
 
+APG's default stance is AI-native first: AI systems may explore, compare, and mutate traces in forms that are not designed for human readability. Human translation is a later layer for cases that become interesting enough to explain.
+
 ## Current Flow
 
 ```bash
@@ -40,6 +42,10 @@ The viewer is local, read-only, and does not call any LLM or external API.
 ```bash
 npm run garden-status
 ```
+
+## AI-Native Traces
+
+Each experiment writes `alien_trace.json`, a deterministic machine-facing observation tape. It is not a human explanation; it is an AI-readable trace that can later feed clustering, evolution, or translation.
 
 ## API Strategy
 

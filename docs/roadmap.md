@@ -48,7 +48,11 @@ Improve the Ollama critic path for local reasoning models by asking for JSON-onl
 
 Add `garden_program.md` as the human-written research taste for APG, plus `npm run garden-status` and viewer access so future evolution can read the garden's policy without changing code.
 
-## v0.2.11 Research Signal Harvester
+## v0.2.11 AI-Native Trace
+
+Write `alien_trace.json` for each experiment as a deterministic machine-facing observation layer. Human translation remains optional and separate: APG should first let AI systems explore in AI-native traces, tapes, symbols, or non-language forms.
+
+## v0.2.12 Research Signal Harvester
 
 Add an optional Python sidecar for collecting recent research signals from sources such as arXiv, journal pages, conference programs, and research blogs. Scrapling is a strong candidate for this layer because it supports adaptive selectors, multiple fetchers, crawls, and AI/MCP-oriented extraction, but it should remain optional so the v0.1 CLI stays local and deterministic.
 

@@ -37,6 +37,7 @@ test("artifact scanner includes APG experiment and mutation artifacts", async ()
     assert.ok(experiment);
     assert.ok(experiment.artifacts.some((artifact) => artifact.path === "experiments/APG-0001/report.md"));
     assert.ok(experiment.artifacts.some((artifact) => artifact.path === "experiments/APG-0001/puzzle.json"));
+    assert.ok(experiment.artifacts.some((artifact) => artifact.path === "experiments/APG-0001/alien_trace.json"));
     assert.ok(mutation);
     assert.ok(mutation.artifacts.some((artifact) => artifact.path === "experiments/APG-0001/mutations/MUT-001/report.md"));
     assert.ok(mutation.artifacts.some((artifact) => artifact.path === "experiments/APG-0001/mutations/MUT-001/mutation_result.json"));
@@ -110,6 +111,7 @@ async function createViewerFixture(): Promise<string> {
   await writeFile(join(rootDir, "experiments", "naming_debt_report.md"), "# Naming Debt Report\n", "utf8");
   await writeFile(join(rootDir, "experiments", "APG-0001", "report.md"), "# Report\n", "utf8");
   await writeFile(join(rootDir, "experiments", "APG-0001", "puzzle.json"), `${JSON.stringify({ id: "APG-0001" }, null, 2)}\n`, "utf8");
+  await writeFile(join(rootDir, "experiments", "APG-0001", "alien_trace.json"), `${JSON.stringify({ experimentId: "APG-0001" }, null, 2)}\n`, "utf8");
   await writeFile(join(rootDir, "experiments", "APG-0001", "stats.json"), `${JSON.stringify({ puzzleId: "APG-0001" }, null, 2)}\n`, "utf8");
   await writeFile(join(rootDir, "experiments", "APG-0001", "mutations", "MUT-001", "report.md"), "# Mutation\n", "utf8");
   await writeFile(join(rootDir, "experiments", "APG-0001", "mutations", "MUT-001", "mutation_result.json"), `${JSON.stringify({ mutationId: "MUT-001" }, null, 2)}\n`, "utf8");
