@@ -52,7 +52,11 @@ Add `garden_program.md` as the human-written research taste for APG, plus `npm r
 
 Write `alien_trace.json` for each experiment as a deterministic machine-facing observation layer. Human translation remains optional and separate: APG should first let AI systems explore in AI-native traces, tapes, symbols, or non-language forms.
 
-## v0.2.12 Research Signal Harvester
+## v0.2.12 Translation Gate
+
+Read `alien_trace.json` and decide whether the trace is worth a short human-facing note. Most traces can remain AI-native; only traces with enough local contrast, basin diversity, or rule concentration should produce `translation_note.md`.
+
+## v0.2.13 Research Signal Harvester
 
 Add an optional Python sidecar for collecting recent research signals from sources such as arXiv, journal pages, conference programs, and research blogs. Scrapling is a strong candidate for this layer because it supports adaptive selectors, multiple fetchers, crawls, and AI/MCP-oriented extraction, but it should remain optional so the v0.1 CLI stays local and deterministic.
 

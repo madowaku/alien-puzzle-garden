@@ -19,6 +19,7 @@ npm run survival-index
 npm run evolution-candidates
 npm run naming-debt
 npm run garden-status
+npm run translation-gate
 ```
 
 ## Local Web Viewer
@@ -46,6 +47,14 @@ npm run garden-status
 ## AI-Native Traces
 
 Each experiment writes `alien_trace.json`, a deterministic machine-facing observation tape. It is not a human explanation; it is an AI-readable trace that can later feed clustering, evolution, or translation.
+
+## Translation Gate
+
+```bash
+npm run translation-gate
+```
+
+The translation gate reads `alien_trace.json` and decides whether a trace is worth a short human-facing note. Most traces can remain AI-native. If a trace crosses the deterministic human-interest threshold, APG writes `translation_note.md`.
 
 ## API Strategy
 

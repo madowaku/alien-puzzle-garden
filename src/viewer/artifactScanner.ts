@@ -37,6 +37,8 @@ const EXPERIMENT_FILES = [
   "survival_report.md",
   "puzzle.json",
   "alien_trace.json",
+  "translation_gate.json",
+  "translation_note.md",
   "stats.json",
   "mutation_plan.json",
   "survival_report.json"

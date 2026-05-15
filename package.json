@@ -12,6 +12,7 @@
     "evolution-candidates": "tsx src/commands/runEvolutionCandidates.ts",
     "naming-debt": "tsx src/commands/runNamingDebt.ts",
     "garden-status": "tsx src/commands/runGardenStatus.ts",
+    "translation-gate": "tsx src/commands/runTranslationGate.ts",
     "viewer": "tsx src/commands/runViewer.ts",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts"
