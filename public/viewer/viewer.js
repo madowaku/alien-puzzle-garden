@@ -268,6 +268,20 @@ function buildObservatoryCards(path, content, kind) {
     ])];
   }
 
+  if (path.endsWith("research_signal_index.json")) {
+    const topics = topRecordEntries(data.topicCounts, 3).map(([label, value]) => `${label}: ${value}`).join("\n");
+    const connections = topRecordEntries(data.apgConnectionCounts, 3).map(([label, value]) => `${label}: ${value}`).join("\n");
+    const recommendations = Array.isArray(data.recommendations)
+      ? data.recommendations.slice(0, 3).map((item) => `${item.title ?? "unknown"} (${item.nextAction ?? "unknown"})`).join("\n")
+      : undefined;
+    return [card("Research Signals", [
+      row("signalCount", data.signalCount),
+      row("Top topics", topics),
+      row("APG connections", connections),
+      row("Recommendations", recommendations)
+    ])];
+  }
+
   return [];
 }
 
@@ -357,6 +371,14 @@ function topRuleUsage(ruleUsage) {
   if (!ruleUsage || typeof ruleUsage !== "object") return undefined;
   const [ruleId, count] = Object.entries(ruleUsage).sort((left, right) => Number(right[1]) - Number(left[1]))[0] || [];
   return ruleId ? `${ruleId}: ${count}` : undefined;
+}
+
+function topRecordEntries(record, limit) {
+  if (!record || typeof record !== "object") return [];
+  return Object.entries(record)
+    .sort((left, right) => Number(right[1]) - Number(left[1]) || left[0].localeCompare(right[0]))
+    .slice(0, limit)
+    .map(([key, value]) => [key, Number(value)]);
 }
 
 function formatScore(score) {

@@ -21,6 +21,7 @@ npm run naming-debt
 npm run garden-status
 npm run translation-gate
 npm run trace-atlas
+npm run research-signals
 ```
 
 ## Local Web Viewer
@@ -66,6 +67,15 @@ npm run trace-atlas
 The Trace Atlas scans experiments and groups AI-native traces by translation decision, recurring reasons, dominant rule pulses, quiet traces, and human-interest candidates.
 
 `garden_program.md` lightly influences translation scoring, so the gardener's current research taste can nudge borderline traces without replacing deterministic evidence.
+
+## Research Signals
+
+```bash
+python tools/research_harvester.py
+npm run research-signals
+```
+
+The Python sidecar writes local JSONL research hints, and APG turns them into `research_signal_index.json` and `research_signal_index.md`. This layer is optional: it does not change deterministic experiment generation, and network collection is reserved for a later explicit opt-in path.
 
 ## API Strategy
 

@@ -14,6 +14,7 @@
     "garden-status": "tsx src/commands/runGardenStatus.ts",
     "translation-gate": "tsx src/commands/runTranslationGate.ts",
     "trace-atlas": "tsx src/commands/runTraceAtlas.ts",
+    "research-signals": "tsx src/commands/runResearchSignals.ts",
     "viewer": "tsx src/commands/runViewer.ts",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts"

@@ -107,6 +107,38 @@ test("trace_atlas.json produces atlas summary cards", () => {
   assert.ok(cards[0]?.rows.some((row) => row.label === "Quiet traces" && row.value.includes("APG-0003")));
 });
 
+test("research_signal_index.json produces research signal cards", () => {
+  const cards = buildObservatoryCards("research_signal_index.json", JSON.stringify({
+    signalCount: 3,
+    topicCounts: {
+      "string rewriting": 2,
+      "graph rewriting": 1
+    },
+    apgConnectionCounts: {
+      "trace atlas": 2,
+      "graph transform puzzle": 1
+    },
+    recommendations: [
+      {
+        title: "Rewrite systems",
+        nextAction: "inspect_for_apg_relevance",
+        reason: "Connected to symbol rewrite puzzle."
+      },
+      {
+        title: "Graph grammars",
+        nextAction: "map_to_trace_atlas",
+        reason: "Connected to graph transform puzzle."
+      }
+    ]
+  }), "json");
+
+  assert.equal(cards[0]?.title, "Research Signals");
+  assert.ok(cards[0]?.rows.some((row) => row.label === "signalCount" && row.value === "3"));
+  assert.ok(cards[0]?.rows.some((row) => row.label === "Top topics" && row.value.includes("string rewriting: 2")));
+  assert.ok(cards[0]?.rows.some((row) => row.label === "APG connections" && row.value.includes("trace atlas: 2")));
+  assert.ok(cards[0]?.rows.some((row) => row.label === "Recommendations" && row.value.includes("Rewrite systems")));
+});
+
 test("report.md extracts madowaku name candidate", () => {
   const cards = buildObservatoryCards("report.md", `# Report
 

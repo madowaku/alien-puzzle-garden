@@ -68,6 +68,8 @@ Show Trace Atlas summaries in the viewer right pane, and let `garden_program.md`
 
 Add an optional Python sidecar for collecting recent research signals from sources such as arXiv, journal pages, conference programs, and research blogs. Scrapling is a strong candidate for this layer because it supports adaptive selectors, multiple fetchers, crawls, and AI/MCP-oriented extraction, but it should remain optional so the v0.1 CLI stays local and deterministic.
 
+The first implementation is local-first: `tools/research_harvester.py` writes fixture or seed JSONL signals, and `npm run research-signals` builds `research_signal_index.json` plus `research_signal_index.md`. Network harvesting remains a future explicit opt-in.
+
 ## v0.3 Graph Transform Puzzle
 
 Add graph-state puzzles with edge transforms, degree constraints, and convergence analysis.

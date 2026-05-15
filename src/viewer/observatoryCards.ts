@@ -58,6 +58,9 @@ export function buildObservatoryCards(path: string, content: string, kind: "mark
   if (path.endsWith("trace_atlas.json")) {
     return buildTraceAtlasCard(parsed);
   }
+  if (path.endsWith("research_signal_index.json")) {
+    return buildResearchSignalIndexCard(parsed);
+  }
   return [];
 }
 
@@ -202,6 +205,23 @@ function buildTraceAtlasCard(atlas: any): ObservatoryCard[] {
       row("Top rule families", families),
       row("Translation candidates", candidates),
       row("Quiet traces", quiet)
+    ].filter(hasValue)
+  }];
+}
+
+function buildResearchSignalIndexCard(index: any): ObservatoryCard[] {
+  const topics = topRecordEntries(index.topicCounts, 3).map(([label, value]) => `${label}: ${value}`).join("\n");
+  const connections = topRecordEntries(index.apgConnectionCounts, 3).map(([label, value]) => `${label}: ${value}`).join("\n");
+  const recommendations = Array.isArray(index.recommendations)
+    ? index.recommendations.slice(0, 3).map((item: any) => `${item.title ?? "unknown"} (${item.nextAction ?? "unknown"})`).join("\n")
+    : undefined;
+  return [{
+    title: "Research Signals",
+    rows: [
+      row("signalCount", index.signalCount),
+      row("Top topics", topics),
+      row("APG connections", connections),
+      row("Recommendations", recommendations)
     ].filter(hasValue)
   }];
 }

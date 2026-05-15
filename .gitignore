@@ -16,6 +16,9 @@ experiments/naming_debt_report.json
 experiments/naming_debt_report.md
 experiments/trace_atlas.json
 experiments/trace_atlas.md
+experiments/research_signals.jsonl
+experiments/research_signal_index.json
+experiments/research_signal_index.md
 
 # Keep experiments directory if needed
 !experiments/.gitkeep
