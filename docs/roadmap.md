@@ -74,6 +74,10 @@ The first implementation is local-first: `tools/research_harvester.py` writes fi
 
 Add `AI_CREOLE.md` as APG's project-local dialect for compact AI-to-AI and human-to-AI handoff. The dialect borrows stable core tags from the AI Creole Dictionary while keeping APG-specific terms such as AI-native trace, Translation Gate, Pattern Survival, Naming Debt, Failure-as-specimen, and Fluffy Experiment Card local and provisional.
 
+## v0.2.15 Awesome Math Seed Importer
+
+Allow `tools/research_harvester.py --source awesome-math --input <local markdown>` to turn selected `rossant/awesome-math` headings into Research Signal vocabulary seeds. This treats awesome-math as an external vocabulary shelf for translation hints and research map anchors, not as proof that APG traces belong to those theories.
+
 ## v0.3 Graph Transform Puzzle
 
 Add graph-state puzzles with edge transforms, degree constraints, and convergence analysis.

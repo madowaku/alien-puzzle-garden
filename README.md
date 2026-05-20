@@ -77,6 +77,12 @@ npm run research-signals
 
 The Python sidecar writes local JSONL research hints, and APG turns them into `research_signal_index.json` and `research_signal_index.md`. This layer is optional: it does not change deterministic experiment generation, and network collection is reserved for a later explicit opt-in path.
 
+Awesome Math can be used as a local vocabulary seed:
+
+```bash
+python tools/research_harvester.py --source awesome-math --input fixtures/awesome-math-sample.md
+```
+
 ## AI Creole
 
 `AI_CREOLE.md` defines APG's project-local AI Creole dialect: a compact handoff language for AI-to-AI and human-to-AI work notes.

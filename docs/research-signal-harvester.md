@@ -26,6 +26,35 @@ experiments/research_signal_index.json
 experiments/research_signal_index.md
 ```
 
+## Awesome Math Vocabulary Seeds
+
+`rossant/awesome-math` is useful as a vocabulary map, not as evidence that an APG trace belongs to a mathematical theory.
+
+Keep it fixture-based and local:
+
+```bash
+python tools/research_harvester.py --source awesome-math --input fixtures/awesome-math-sample.md
+npm run research-signals
+```
+
+The importer scans local Markdown headings and emits only APG-adjacent vocabulary seeds such as Logic, Category Theory, Type Theory, Combinatorics, Graph Theory, Topology, Chaos Theory, and Mathematics for Computer Science.
+
+Each generated signal should be read as:
+
+```txt
+possible adjacent vocabulary
+translation vocabulary hint
+research map anchor
+```
+
+It should not be read as:
+
+```txt
+proof of connection
+novelty claim
+paper-ready theory label
+```
+
 ## Why A Sidecar
 
 Scrapling is a strong future candidate because it supports adaptive selection, multiple fetchers, spider-style crawling, pause/resume, robots.txt compliance, development caching, JSON/JSONL export, and MCP-oriented extraction. APG should borrow that shape without making network collection part of the core CLI.
