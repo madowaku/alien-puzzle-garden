@@ -24,6 +24,7 @@ test("artifact scanner includes global reports, docs, and README", async () => {
     assert.ok(labels.includes("naming_debt_report.md"));
     assert.ok(labels.includes("trace_atlas.md"));
     assert.ok(labels.includes("research_signal_index.md"));
+    assert.ok(labels.includes("research_vocabulary_hints.md"));
   } finally {
     await rm(rootDir, { recursive: true, force: true });
   }
@@ -118,6 +119,7 @@ async function createViewerFixture(): Promise<string> {
   await writeFile(join(rootDir, "experiments", "naming_debt_report.md"), "# Naming Debt Report\n", "utf8");
   await writeFile(join(rootDir, "experiments", "trace_atlas.md"), "# Trace Atlas\n", "utf8");
   await writeFile(join(rootDir, "experiments", "research_signal_index.md"), "# Research Signal Index\n", "utf8");
+  await writeFile(join(rootDir, "experiments", "research_vocabulary_hints.md"), "# Research Vocabulary Hints\n", "utf8");
   await writeFile(join(rootDir, "experiments", "APG-0001", "report.md"), "# Report\n", "utf8");
   await writeFile(join(rootDir, "experiments", "APG-0001", "puzzle.json"), `${JSON.stringify({ id: "APG-0001" }, null, 2)}\n`, "utf8");
   await writeFile(join(rootDir, "experiments", "APG-0001", "alien_trace.json"), `${JSON.stringify({ experimentId: "APG-0001" }, null, 2)}\n`, "utf8");

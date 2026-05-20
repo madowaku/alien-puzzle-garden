@@ -19,6 +19,8 @@ experiments/trace_atlas.md
 experiments/research_signals.jsonl
 experiments/research_signal_index.json
 experiments/research_signal_index.md
+experiments/research_vocabulary_hints.json
+experiments/research_vocabulary_hints.md
 
 # Keep experiments directory if needed
 !experiments/.gitkeep

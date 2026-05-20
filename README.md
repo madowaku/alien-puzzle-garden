@@ -22,6 +22,7 @@ npm run garden-status
 npm run translation-gate
 npm run trace-atlas
 npm run research-signals
+npm run research-vocabulary-hints
 ```
 
 ## Local Web Viewer
@@ -82,6 +83,8 @@ Awesome Math can be used as a local vocabulary seed:
 ```bash
 python tools/research_harvester.py --source awesome-math --input fixtures/awesome-math-sample.md
 ```
+
+`npm run research-vocabulary-hints` lightly connects `research_signal_index.json` with `trace_atlas.json` and writes speculative translation vocabulary hints. These hints are not evidence, not proof, and not matched theory.
 
 ## AI Creole
 

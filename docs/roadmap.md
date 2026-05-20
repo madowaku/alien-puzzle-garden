@@ -78,6 +78,10 @@ Add `AI_CREOLE.md` as APG's project-local dialect for compact AI-to-AI and human
 
 Allow `tools/research_harvester.py --source awesome-math --input <local markdown>` to turn selected `rossant/awesome-math` headings into Research Signal vocabulary seeds. This treats awesome-math as an external vocabulary shelf for translation hints and research map anchors, not as proof that APG traces belong to those theories.
 
+## v0.2.15.1 Research Vocabulary Hints
+
+Connect `research_signal_index.json` and `trace_atlas.json` lightly to produce `research_vocabulary_hints.json` and `research_vocabulary_hints.md`. Hints are translation vocabulary only: not evidence, not proof, not a matched theory, and not a novelty claim. The output includes an AI Creole `VocabularyScout` handoff block for later translation notes or trace cluster seeds.
+
 ## v0.3 Graph Transform Puzzle
 
 Add graph-state puzzles with edge transforms, degree constraints, and convergence analysis.
