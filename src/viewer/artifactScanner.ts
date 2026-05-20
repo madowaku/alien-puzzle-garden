@@ -31,6 +31,8 @@ const GLOBAL_EXPERIMENT_FILES = [
   "experiments/research_signal_index.json",
   "experiments/research_vocabulary_hints.md",
   "experiments/research_vocabulary_hints.json",
+  "experiments/trace_cluster_seeds.md",
+  "experiments/trace_cluster_seeds.json",
   "experiments/pattern_survival_index.md",
   "experiments/evolution_parent_candidates.md",
   "experiments/naming_debt_report.md"

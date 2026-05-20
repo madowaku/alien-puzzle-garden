@@ -16,6 +16,7 @@
     "trace-atlas": "tsx src/commands/runTraceAtlas.ts",
     "research-signals": "tsx src/commands/runResearchSignals.ts",
     "research-vocabulary-hints": "tsx src/commands/runResearchVocabularyHints.ts",
+    "trace-cluster-seeds": "tsx src/commands/runTraceClusterSeeds.ts",
     "viewer": "tsx src/commands/runViewer.ts",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts"

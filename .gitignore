@@ -21,6 +21,8 @@ experiments/research_signal_index.json
 experiments/research_signal_index.md
 experiments/research_vocabulary_hints.json
 experiments/research_vocabulary_hints.md
+experiments/trace_cluster_seeds.json
+experiments/trace_cluster_seeds.md
 
 # Keep experiments directory if needed
 !experiments/.gitkeep

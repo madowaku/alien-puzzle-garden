@@ -86,6 +86,10 @@ Connect `research_signal_index.json` and `trace_atlas.json` lightly to produce `
 
 Define the loose JSON-artifact bridge between Fluffy Laboratory and APG. Fluffy exports Puzzle Seed intent as APG handoff JSON; APG later returns observations, survival results, weird residue, or failure specimens as Fluffy-compatible notes. The bridge keeps the repositories separate and avoids direct runtime coupling.
 
+## v0.2.16 Trace Cluster Seeds
+
+Group Trace Atlas families into deterministic pre-cluster seeds using dominant rule family, translation reasons, human-interest band, decision, and vocabulary hints. This is not full clustering; it prepares cluster-specific mutation pressure, surviving trace family checks, and future evolution parent selection.
+
 ## v0.3 Graph Transform Puzzle
 
 Add graph-state puzzles with edge transforms, degree constraints, and convergence analysis.

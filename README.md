@@ -23,6 +23,7 @@ npm run translation-gate
 npm run trace-atlas
 npm run research-signals
 npm run research-vocabulary-hints
+npm run trace-cluster-seeds
 ```
 
 ## Local Web Viewer
@@ -85,6 +86,8 @@ python tools/research_harvester.py --source awesome-math --input fixtures/awesom
 ```
 
 `npm run research-vocabulary-hints` lightly connects `research_signal_index.json` with `trace_atlas.json` and writes speculative translation vocabulary hints. These hints are not evidence, not proof, and not matched theory.
+
+`npm run trace-cluster-seeds` groups trace families into deterministic seed clusters for later mutation pressure, translation notes, or evolution parent selection.
 
 ## AI Creole
 
