@@ -25,7 +25,7 @@ export function resolveAllowedViewerPath(rootDir: string, requestedPath: string)
 }
 
 function isAllowedRelativePath(path: string): boolean {
-  if (path === "README.md" || path === "garden_program.md") {
+  if (path === "README.md" || path === "AI_CREOLE.md" || path === "garden_program.md") {
     return true;
   }
   return ALLOWED_ROOTS.some((root) => path.startsWith(`${root}/`));

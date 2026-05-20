@@ -70,6 +70,10 @@ Add an optional Python sidecar for collecting recent research signals from sourc
 
 The first implementation is local-first: `tools/research_harvester.py` writes fixture or seed JSONL signals, and `npm run research-signals` builds `research_signal_index.json` plus `research_signal_index.md`. Network harvesting remains a future explicit opt-in.
 
+## v0.2.14.1 AI Creole Local Dialect
+
+Add `AI_CREOLE.md` as APG's project-local dialect for compact AI-to-AI and human-to-AI handoff. The dialect borrows stable core tags from the AI Creole Dictionary while keeping APG-specific terms such as AI-native trace, Translation Gate, Pattern Survival, Naming Debt, Failure-as-specimen, and Fluffy Experiment Card local and provisional.
+
 ## v0.3 Graph Transform Puzzle
 
 Add graph-state puzzles with edge transforms, degree constraints, and convergence analysis.

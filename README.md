@@ -77,6 +77,12 @@ npm run research-signals
 
 The Python sidecar writes local JSONL research hints, and APG turns them into `research_signal_index.json` and `research_signal_index.md`. This layer is optional: it does not change deterministic experiment generation, and network collection is reserved for a later explicit opt-in path.
 
+## AI Creole
+
+`AI_CREOLE.md` defines APG's project-local AI Creole dialect: a compact handoff language for AI-to-AI and human-to-AI work notes.
+
+It keeps APG's local terms such as AI-native trace, Translation Gate, Pattern Survival, Naming Debt, Failure-as-specimen, and Fluffy Experiment Card without making the core loop depend on another repository.
+
 ## API Strategy
 
 - `mock`: no API key
