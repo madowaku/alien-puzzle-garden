@@ -82,6 +82,10 @@ Allow `tools/research_harvester.py --source awesome-math --input <local markdown
 
 Connect `research_signal_index.json` and `trace_atlas.json` lightly to produce `research_vocabulary_hints.json` and `research_vocabulary_hints.md`. Hints are translation vocabulary only: not evidence, not proof, not a matched theory, and not a novelty claim. The output includes an AI Creole `VocabularyScout` handoff block for later translation notes or trace cluster seeds.
 
+## v0.2.15.2 Fluffy Laboratory Bridge
+
+Define the loose JSON-artifact bridge between Fluffy Laboratory and APG. Fluffy exports Puzzle Seed intent as APG handoff JSON; APG later returns observations, survival results, weird residue, or failure specimens as Fluffy-compatible notes. The bridge keeps the repositories separate and avoids direct runtime coupling.
+
 ## v0.3 Graph Transform Puzzle
 
 Add graph-state puzzles with edge transforms, degree constraints, and convergence analysis.

@@ -92,6 +92,10 @@ python tools/research_harvester.py --source awesome-math --input fixtures/awesom
 
 It keeps APG's local terms such as AI-native trace, Translation Gate, Pattern Survival, Naming Debt, Failure-as-specimen, and Fluffy Experiment Card without making the core loop depend on another repository.
 
+## Fluffy Laboratory Bridge
+
+`docs/apg-fluffy-bridge.md` describes the loose JSON-artifact membrane between APG and Fluffy Laboratory. APG remains the AI-native experiment garden; Fluffy remains the local-first shelf for questions, observations, Puzzle Seeds, and failure specimens.
+
 ## API Strategy
 
 - `mock`: no API key
